@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Add Feedback for {{ contractor.name }}</h2>
+
+<form method="POST">
+    <div class="form-group">
+        <label for="rating">Rating</label>
+        <select class="form-control" id="rating" name="rating" required>
+            <option value="5">★★★★★ - Excellent</option>
+            <option value="4">★★★★☆ - Good</option>
+            <option value="3">★★★☆☆ - Average</option>
+            <option value="2">★★☆☆☆ - Poor</option>
+            <option value="1">★☆☆☆☆ - Very Poor</option>
+        </select>
+    </div>
+    
+    {% if orders %}
+    <div class="form-group">
+        <label for="order_id">Related Order (optional)</label>
+        <select class="form-control" id="order_id" name="order_id">
+            <option value="">-- Select Order --</option>
+            {% for order in orders %}
+            <option value="{{ order.order_id }}">
+                #{{ order.order_id }} - {{ order.customer_name }} - {{ order.order_date.strftime('%Y-%m-%d') }}
+            </option>
+            {% endfor %}
+        </select>
+    </div>
+    {% endif %}
+    
+    <div class="form-group">
+        <label for="comments">Comments</label>
+        <textarea class="form-control" id="comments" name="comments" rows="3"></textarea>
+    </div>
+    
+    <button type="submit" class="btn btn-primary">Submit Feedback</button>
+    <a href="{{ url_for('view_contractor_feedback', contractor_id=contractor.contractor_id) }}" class="btn btn-secondary">Cancel</a>
+</form>
+{% endblock %}

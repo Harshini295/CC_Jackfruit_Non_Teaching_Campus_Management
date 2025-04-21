@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Counseling Services</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<div class="container" style="display: flex;">
+    <div class="sidebar" style="width: 250px; background-color: #007bff; color: white; padding: 20px;">
+        <h2>Welfare Dashboard</h2>
+        <hr>
+        <ul style="list-style: none; padding-left: 0;">
+            <li><a href="/student-grievance-redressal" style="color: white;">Student Grievance Redressal</a></li>
+            <li><a href="/counseling-services" style="color: white;">Counseling Services</a></li>
+            <li><a href="/wellbeing-programs" style="color: white;">Well-being Programs</a></li>
+            <li><a href="/emergency-support" style="color: white;">Emergency Support</a></li>
+        </ul>
+        <br>
+        <a href="/logout" style="color: yellow;">Logout</a>
+    </div>
+
+    <div class="main-content" style="padding: 30px; flex: 1;">
+        <h2>Welcome, {{ session['email'] }}!</h2>
+        <h1>Counseling Services Coordination</h1>
+        <p>Access our wellness support team for personal, academic, and emotional counseling services.</p>
+
+        <ul>
+            <li>Book appointments with certified counselors.</li>
+            <li>Explore stress management workshops and wellness sessions.</li>
+            <li>Resources for mental health and mindfulness.</li>
+        </ul>
+
+        <hr>
+
+        <h3>📅 Book an Appointment</h3>
+        <form method="POST" action="/counseling-services">
+            <input type="text" name="name" placeholder="Your Name" required><br><br>
+            <input type="email" name="email" placeholder="Your Email" required><br><br>
+        
+            <label for="appointment_date">Select Date:</label><br>
+            <input type="date" name="appointment_date" required><br><br>
+        
+            <label for="time_slot">Select Time Slot:</label><br>
+            <select name="time_slot" required>
+                <option value="">-- Choose a time --</option>
+                <option value="10:00 AM - 11:00 AM">10:00 AM - 11:00 AM</option>
+                <option value="2:00 PM - 3:00 PM">2:00 PM - 3:00 PM</option>
+                <option value="4:00 PM - 5:00 PM">4:00 PM - 5:00 PM</option>
+            </select><br><br>
+        
+            <button type="submit">Book Appointment</button>
+        </form>
+        
+        <hr>
+        
+
+        <h3>🌿 Upcoming Wellness Programs</h3>
+        <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+            <div>
+                <img src="{{ url_for('static', filename='mindfullness.jpeg') }}" width="200">
+                <p>Breathing & Mindfulness – April 15, 2025</p>
+            </div>
+            <div>
+                <img src="{{ url_for('static', filename='yoga.jpg') }}" width="200">
+                <p>Yoga for Inner Calm – April 20, 2025</p>
+            </div>
+        </div>
+
+        <hr>
+
+        <h3>🎥 Mindfulness & Wellness Videos</h3>
+        <iframe width="300" height="200" src="https://www.youtube.com/embed/w6T02g5hnT4" frameborder="0" allowfullscreen></iframe>
+        <iframe width="300" height="200" src="https://www.youtube.com/embed/MIr3RsUWrdo" frameborder="0" allowfullscreen></iframe>
+
+    </div>
+</div>
+</body>
+</html>

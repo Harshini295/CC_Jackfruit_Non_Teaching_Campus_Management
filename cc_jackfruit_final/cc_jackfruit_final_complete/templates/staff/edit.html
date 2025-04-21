@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+
+{% block title %}Edit Staff Member{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Edit {{ staff.name }}</h1>
+</div>
+
+<form method="POST">
+    <div class="row mb-3">
+        <div class="col-md-6">
+            <label for="name" class="form-label">Full Name</label>
+            <input type="text" class="form-control" id="name" name="name" 
+                   value="{{ staff.name }}" required>
+        </div>
+
+        <div class="col-md-6">
+            <label for="role" class="form-label">Role</label>
+            <input type="text" class="form-control" id="role" name="role" 
+                   value="{{ staff.role }}" required>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-md-6">
+            <label for="contractor_id" class="form-label">Contractor</label>
+            <select class="form-control" id="contractor_id" name="contractor_id">
+                <option value="">-- None --</option>
+                {% for contractor in contractors %}
+                <option value="{{ contractor.contractor_id }}" 
+                        {% if contractor.contractor_id == staff.contractor_id %}selected{% endif %}>
+                    {{ contractor.name }}
+                </option>
+                {% endfor %}
+            </select>
+        </div>
+    <div class="col-md-6">
+            <label for="service_type" class="form-label">Service Type</label>
+            <select class="form-control" id="service_type" name="service_type" required>
+                <option value="">-- Select Service Type --</option>
+                <option value="Security" {% if staff.service_type == 'Security' %}selected{% endif %}>Security</option>
+                <option value="Canteen" {% if staff.service_type == 'Canteen' %}selected{% endif %}>Canteen</option>
+                <option value="Cleaning" {% if staff.service_type == 'Cleaning' %}selected{% endif %}>Cleaning</option>
+            </select>
+    </div>
+
+        <div class="col-md-6">
+            <label for="phone" class="form-label">Phone</label>
+            <input type="text" class="form-control" id="phone" name="phone" 
+                   value="{{ staff.phone }}">
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-md-6">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-control" id="email" name="email" 
+                   value="{{ staff.email }}">
+        </div>
+
+        <div class="col-md-6">
+            <label for="hire_date" class="form-label">Hire Date</label>
+            <input type="date" class="form-control" id="hire_date" name="hire_date" 
+                   value="{{ staff.hire_date.strftime('%Y-%m-%d') if staff.hire_date else '' }}">
+        </div>
+        
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-md-6">
+            <label for="salary" class="form-label">Salary</label>
+            <input type="number" class="form-control" id="salary" name="salary" 
+                   value="{{ staff.salary }}">
+        </div>
+
+        <div class="col-md-6">
+            <label for="status" class="form-label">Status</label>
+            <select class="form-control" id="status" name="status">
+                <option value="active" {% if staff.status == 'active' %}selected{% endif %}>Active</option>
+                <option value="inactive" {% if staff.status == 'inactive' %}selected{% endif %}>Inactive</option>
+                <option value="on_leave" {% if staff.status == 'on_leave' %}selected{% endif %}>On_Leave</option>
+            </select>
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save Changes</button>
+</form>
+
+{% endblock %}

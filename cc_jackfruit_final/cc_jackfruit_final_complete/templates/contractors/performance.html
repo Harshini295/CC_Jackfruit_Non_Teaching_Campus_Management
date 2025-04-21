@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Contractor Performance</h2>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Contractor</th>
+            <th>Service Type</th>
+            <th>Rating</th>
+            <th>Feedback Count</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for contractor in contractors %}
+        <tr>
+            <td>{{ contractor.name }}</td>
+            <td>{{ contractor.service_type }}</td>
+            <td>
+                {% if contractor.avg_rating %}
+                    {{ "%.1f"|format(contractor.avg_rating|float) }}
+                    ({% for i in range(contractor.avg_rating|int) %}★{% endfor %})
+                {% else %}
+                    N/A
+                {% endif %}
+            </td>
+            <td>{{ contractor.feedback_count }}</td>
+            <td>{{ contractor.status }}</td>
+            <td>
+                <a href="{{ url_for('view_contractor_feedback', contractor_id=contractor.contractor_id) }}" 
+                   class="btn btn-sm btn-info">View Feedback</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

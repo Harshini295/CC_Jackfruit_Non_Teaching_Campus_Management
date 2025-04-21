@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <h2>Edit Contract</h2>
+    <form method="POST" action="{{ url_for('edit_contract', contract_id=contract.contract_id) }}">
+        <div class="mb-3">
+            <label for="contractor_id" class="form-label">Contractor</label>
+            <select class="form-select" id="contractor_id" name="contractor_id" required>
+                <option value="">Select Contractor</option>
+                {% for contractor in contractors %}
+                <option value="{{ contractor.contractor_id }}" 
+                    {% if contractor.contractor_id == contract.contractor_id %}selected{% endif %}>
+                    {{ contractor.name }}
+                </option>
+                {% endfor %}
+            </select>
+        </div>
+        
+        <div class="mb-3">
+            <label for="contract_title" class="form-label">Contract Title</label>
+            <input type="text" class="form-control" id="contract_title" name="contract_title" 
+                   value="{{ contract.contract_title }}" required>
+        </div>
+        
+        <div class="mb-3">
+            <label for="description" class="form-label">Description</label>
+            <textarea class="form-control" id="description" name="description" rows="3">{{ contract.description }}</textarea>
+        </div>
+        
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label for="start_date" class="form-label">Start Date</label>
+                <input type="date" class="form-control" id="start_date" name="start_date" 
+                       value="{{ contract.start_date.strftime('%Y-%m-%d') if contract.start_date else '' }}" required>
+            </div>
+            <div class="col-md-6">
+                <label for="end_date" class="form-label">End Date</label>
+                <input type="date" class="form-control" id="end_date" name="end_date" 
+                       value="{{ contract.end_date.strftime('%Y-%m-%d') if contract.end_date else '' }}" required>
+            </div>
+        </div>
+        
+        <div class="mb-3">
+            <label for="total_amount" class="form-label">Total Amount</label>
+            <input type="number" step="0.01" class="form-control" id="total_amount" name="total_amount" 
+                   value="{{ contract.total_amount }}" required>
+        </div>
+        
+        <div class="mb-3">
+            <label for="payment_terms" class="form-label">Payment Terms</label>
+            <textarea class="form-control" id="payment_terms" name="payment_terms" rows="2">{{ contract.payment_terms }}</textarea>
+        </div>
+        
+        <div class="mb-3">
+            <label for="terms_and_conditions" class="form-label">Terms & Conditions</label>
+            <textarea class="form-control" id="terms_and_conditions" name="terms_and_conditions" rows="4">{{ contract.terms_and_conditions }}</textarea>
+        </div>
+        
+        <div class="mb-3">
+            <label for="status" class="form-label">Status</label>
+            <select class="form-select" id="status" name="status" required>
+                <option value="active" {% if contract.status == 'active' %}selected{% endif %}>Active</option>
+                <option value="draft" {% if contract.status == 'draft' %}selected{% endif %}>Draft</option>
+                <option value="completed" {% if contract.status == 'completed' %}selected{% endif %}>Completed</option>
+                <option value="terminated" {% if contract.status == 'terminated' %}selected{% endif %}>Terminated</option>
+            </select>
+        </div>
+        
+        <button type="submit" class="btn btn-primary">Update Contract</button>
+        <a href="{{ url_for('list_contracts') }}" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+{% endblock %}

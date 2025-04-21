@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Manage Well-being Resources</title>
+  <style>
+    body { font-family: Arial; padding: 20px; background: #f4f4f4; }
+    table { width: 100%; border-collapse: collapse; background: #fff; margin-top: 20px; }
+    th, td { padding: 12px; border: 1px solid #ccc; }
+    th { background: #007BFF; color: white; }
+    .form-group { margin-bottom: 10px; }
+    label { display: block; }
+    input, textarea { width: 100%; padding: 8px; }
+    button { padding: 10px 15px; background: green; color: white; border: none; }
+    .delete-btn { background: red; color: white; text-decoration: none; padding: 5px 10px; }
+  </style>
+</head>
+<body>
+  <h2>Manage Well-being Resources</h2>
+
+  <form method="POST" action="{{ url_for('add_resource') }}">
+    <div class="form-group">
+      <label>Title:</label>
+      <input type="text" name="title" required>
+    </div>
+    <div class="form-group">
+      <label>Description:</label>
+      <textarea name="description" rows="3"></textarea>
+    </div>
+    <div class="form-group">
+      <label>Link:</label>
+      <input type="url" name="link" required>
+    </div>
+    <button type="submit">Add Resource</button>
+  </form>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Link</th>
+        <th>Submitted At</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for res in resources %}
+      <tr>
+        <td>{{ res.title }}</td>
+        <td>{{ res.description }}</td>
+        <td><a href="{{ res.link }}" target="_blank">View</a></td>
+        <td>{{ res.submitted_at }}</td>
+        <td><a class="delete-btn" href="{{ url_for('delete_resource', id=res.id) }}">Delete</a></td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</body>
+</html>

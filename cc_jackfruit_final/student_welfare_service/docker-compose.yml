@@ -1,0 +1,28 @@
+#version: '3.8'
+
+services:
+  web:
+    build: .
+    ports:
+      - "5003:5000"
+    volumes:
+      - .:/app
+    env_file:
+      - .env
+    depends_on:
+      - db
+
+  db:
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_DATABASE: student_welfare
+      MYSQL_ROOT_PASSWORD: Domaaru07,
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+
+
+volumes:
+  mysql-data:

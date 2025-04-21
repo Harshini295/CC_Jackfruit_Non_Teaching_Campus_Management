@@ -1,0 +1,112 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Dashboard</h1>
+    <div class="btn-toolbar mb-2 mb-md-0">
+        <div class="btn-group me-2">
+            <button type="button" class="btn btn-sm btn-outline-secondary" onclick="alert('Share functionality coming soon')">
+                <i class="bi bi-share"></i> Share
+            </button>
+            <button type="button" class="btn btn-sm btn-outline-secondary" onclick="window.location.href='/reports/export'">
+                <i class="bi bi-download"></i> Export
+            </button>
+        </div>
+        <div class="btn-group">
+            <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown">
+                <i class="bi bi-calendar"></i> This week
+            </button>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="?period=today">Today</a></li>
+                <li><a class="dropdown-item" href="?period=week">This week</a></li>
+                <li><a class="dropdown-item" href="?period=month">This month</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- Dashboard Cards Section -->
+<div class="row mb-4">
+    <div class="col-md-3">
+        <div class="card-counter primary">
+            <i class="bi bi-people-fill"></i>
+            <span class="count-numbers">{{ active_contractors }}</span>
+            <span class="count-name">Active Contractors</span>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card-counter success">
+            <i class="bi bi-file-earmark-text"></i>
+            <span class="count-numbers">{{ active_contracts }}</span>
+            <span class="count-name">Active Contracts</span>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card-counter info">
+            <i class="bi bi-cart"></i>
+            <span class="count-numbers">{{ today_orders }}</span>
+            <span class="count-name">Today's Orders</span>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card-counter danger">
+            <i class="bi bi-exclamation-triangle"></i>
+            <span class="count-numbers">{{ low_inventory }}</span>
+            <span class="count-name">Low Stock Items</span>
+        </div>
+    </div>
+</div>
+
+<!-- Recent Orders Section -->
+<div class="card">
+    <div class="card-header">
+        <h5 class="card-title mb-0">Recent Orders</h5>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>Order ID</th>
+                        <th>Customer</th>
+                        <th>Date/Time</th>
+                        <th>Status</th>
+                        <th>Amount</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for order in recent_orders %}
+                    <tr>
+                        <td>{{ order.order_id }}</td>
+                        <td>{{ order.customer_name }}</td>
+                        <td>{{ order.order_date.strftime('%Y-%m-%d %H:%M') }}</td>
+                        <td>
+                            <span class="badge 
+                                {% if order.status == 'pending' %}bg-warning
+                                {% elif order.status == 'preparing' %}bg-info
+                                {% elif order.status == 'ready' %}bg-primary
+                                {% elif order.status == 'delivered' %}bg-success
+                                {% else %}bg-danger{% endif %}">
+                                {{ order.status|capitalize }}
+                            </span>
+                        </td>
+                        <td>₹{{ "%.2f"|format(order.total) }}</td>
+                        <td>
+                            <a href="/orders/view/{{ order.order_id }}" class="btn btn-sm btn-outline-primary">
+                                <i class="bi bi-eye"></i> View
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

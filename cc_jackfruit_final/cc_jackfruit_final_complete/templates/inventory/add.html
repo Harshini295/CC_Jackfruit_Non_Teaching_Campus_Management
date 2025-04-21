@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+{% block title %}Add Inventory Item{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">
+        <i class="bi bi-plus-circle"></i> Add Inventory Item
+    </h1>
+</div>
+
+<form method="POST">
+    <div class="row mb-3">
+        <div class="col-md-6">
+            <label for="item_name" class="form-label">Item Name*</label>
+            <input type="text" class="form-control" id="item_name" name="item_name" required>
+        </div>
+        <div class="col-md-6">
+            <label for="category" class="form-label">Category*</label>
+            <select class="form-select" id="category" name="category" required>
+                <option value="">Select Category</option>
+                <option value="vegetable">Vegetable</option>
+                <option value="fruit">Fruit</option>
+                <option value="dairy">Dairy</option>
+                <option value="meat">Meat</option>
+                <option value="grocery">Grocery</option>
+                <option value="beverage">Beverage</option>
+                <option value="other">Other</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-md-4">
+            <label for="quantity" class="form-label">Quantity*</label>
+            <input type="number" step="0.01" min="0" class="form-control" id="quantity" name="quantity" required>
+        </div>
+        <div class="col-md-4">
+            <label for="unit" class="form-label">Unit*</label>
+            <select class="form-select" id="unit" name="unit" required>
+                <option value="">Select Unit</option>
+                <option value="kg">kg</option>
+                <option value="g">g</option>
+                <option value="l">l</option>
+                <option value="ml">ml</option>
+                <option value="piece">piece</option>
+                <option value="packet">packet</option>
+            </select>
+        </div>
+        <div class="col-md-4">
+            <label for="threshold_level" class="form-label">Threshold Level</label>
+            <input type="number" step="0.01" min="0" class="form-control" id="threshold_level" name="threshold_level">
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-md-6">
+            <label for="supplier_info" class="form-label">Supplier Info</label>
+            <input type="text" class="form-control" id="supplier_info" name="supplier_info">
+        </div>
+        <div class="col-md-6">
+            <label for="storage_location" class="form-label">Storage Location</label>
+            <input type="text" class="form-control" id="storage_location" name="storage_location">
+        </div>
+    </div>
+
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+        <a href="/inventory" class="btn btn-secondary me-md-2">
+            <i class="bi bi-x-circle"></i> Cancel
+        </a>
+        <button type="submit" class="btn btn-primary">
+            <i class="bi bi-save"></i> Save Item
+        </button>
+    </div>
+</form>
+{% endblock %}

@@ -1,0 +1,5 @@
+Flask
+Flask-MySQLdb
+mysqlclient
+Flask-WTF
+python-dotenv

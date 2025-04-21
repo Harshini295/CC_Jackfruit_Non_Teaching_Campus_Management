@@ -1,0 +1,57 @@
+<h1>Welcome, {{ session['email'] }}!</h1>
+
+<h2>Student Grievance Redressal</h2>
+<p>This section allows students to submit grievances and review past submissions.</p>
+
+<!-- Grievance Submission Form -->
+<form action="{{ url_for('handle_grievance_form') }}" method="POST" style="max-width: 600px;">
+    <div>
+        <label for="student_name">Name:</label>
+        <input type="text" name="student_name" id="student_name" required>
+    </div>
+    <div>
+        <label for="email">Email:</label>
+        <input type="email" name="email" id="email" required value="{{ session['email'] }}">
+    </div>
+    <div>
+        <label for="category">Category:</label>
+        <select name="category" id="category" required>
+            <option value="">-- Select Category --</option>
+            <option value="Academic">Academic</option>
+            <option value="Personal">Personal</option>
+            <option value="Hostel">Hostel</option>
+            <option value="Others">Others</option>
+        </select>
+    </div>
+    <div>
+        <label for="message">Message:</label>
+        <textarea name="message" id="message" rows="4" required></textarea>
+    </div>
+    <button type="submit">Submit Grievance</button>
+</form>
+
+<hr>
+
+    
+<!-- Grievance History -->
+<h3>Your Previous Grievances</h3>
+{% if user_grievances %}
+<ul>
+    {% for grievance in user_grievances %}
+        <li>
+            <strong>{{ grievance['category'] }}</strong> — {{ grievance['message'] }} <br>
+            <em>Submitted on {{ grievance['submitted_at'].strftime('%Y-%m-%d %H:%M') }}</em>
+        </li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>You have not submitted any grievances yet.</p>
+{% endif %}
+
+<hr>
+
+<!-- Officer Contact Info -->
+<h4>Grievance Redressal Officer Contact</h4>
+<p>Name: Dr. Anjali Mehra</p>
+<p>Email: grievance.officer@university.edu</p>
+<p>Phone: +91-9876543210</p>

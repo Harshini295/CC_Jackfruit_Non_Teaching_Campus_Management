@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Feedback for {{ contractor.name }}</h2>
+<p>Average Rating: {{ "%.1f"|format(contractor.average_rating|float) }} ({{ contractor.feedback_count }} reviews)</p>
+
+<a href="{{ url_for('add_contractor_feedback', contractor_id=contractor.contractor_id) }}" class="btn btn-primary mb-3">
+    Add Feedback
+</a>
+
+<div class="list-group">
+    {% for fb in feedback %}
+    <div class="list-group-item">
+        <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">
+                {% for i in range(fb.rating) %}★{% endfor %}
+                {% for i in range(5 - fb.rating) %}☆{% endfor %}
+            </h5>
+            <small>{{ fb.feedback_date.strftime('%Y-%m-%d') }}</small>
+        </div>
+        {% if fb.order_id %}
+        <p class="mb-1">Order #{{ fb.order_id }} - {{ fb.customer_name }}</p>
+        {% endif %}
+        <p class="mb-1">{{ fb.comments }}</p>
+    </div>
+    {% else %}
+    <div class="alert alert-info">No feedback yet for this contractor.</div>
+    {% endfor %}
+</div>
+{% endblock %}

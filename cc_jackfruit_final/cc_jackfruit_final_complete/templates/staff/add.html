@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+
+{% block title %}Add Staff{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Add Staff Member</h1>
+</div>
+
+<form method="POST">
+    <div class="row mb-3">
+        <div class="col-md-6">
+            <label for="name" class="form-label">Full Name</label>
+            <input type="text" class="form-control" id="name" name="name" required>
+        </div>
+        <div class="col-md-6">
+            <label for="role" class="form-label">Role</label>
+            <select class="form-select" id="role" name="role" required>
+                <option value="manager">Manager</option>
+                <option value="cashier">Cashier</option>
+                <option value="cook">Cook</option>
+                <option value="helper">Helper</option>
+                <option value="cleaner">Cleaner</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-md-6">
+            <label for="service_type" class="form-label">Service Type</label>
+            <select class="form-select" id="service_type" name="service_type" required>
+                <option value="">-- Select Service Type --</option>
+                <option value="Security">Security</option>
+                <option value="Canteen">Canteen</option>
+                <option value="Cleaning">Cleaning</option>
+                <option value="Other">Other</option>
+            </select>
+        </div>
+        <div class="col-md-6">
+            <label for="contractor_id" class="form-label">Contractor (if applicable)</label>
+            <select class="form-select" id="contractor_id" name="contractor_id">
+                <option value="">Select Contractor</option>
+                {% for contractor in contractors %}
+                <option value="{{ contractor.contractor_id }}">{{ contractor.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-md-6">
+            <label for="hire_date" class="form-label">Hire Date</label>
+            <input type="date" class="form-control" id="hire_date" name="hire_date">
+        </div>
+        <div class="col-md-6">
+            <label for="phone" class="form-label">Phone</label>
+            <input type="tel" class="form-control" id="phone" name="phone">
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-md-6">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-control" id="email" name="email">
+        </div>
+        <div class="col-md-6">
+            <label for="salary" class="form-label">Salary</label>
+            <input type="number" step="0.01" class="form-control" id="salary" name="salary">
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-md-6">
+            <label for="status" class="form-label">Status</label>
+            <select class="form-select" id="status" name="status" required>
+                <option value="active">Active</option>
+                <option value="inactive">Inactive</option>
+                <option value="on_leave">On Leave</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+        <a href="/staff" class="btn btn-secondary me-md-2">
+            <i class="bi bi-x-circle"></i> Cancel
+        </a>
+        <button type="submit" class="btn btn-primary">
+            <i class="bi bi-save"></i> Save Staff
+        </button>
+    </div>
+</form>
+{% endblock %}

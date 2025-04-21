@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}Canteens{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-3">Available Canteens</h2>
+    <div class="list-group">
+        {% for canteen in canteens %}
+            <div class="list-group-item">
+                <h5>{{ canteen.name }}</h5>
+                <p>Contractor ID: {{ canteen.contractor_id }}</p>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

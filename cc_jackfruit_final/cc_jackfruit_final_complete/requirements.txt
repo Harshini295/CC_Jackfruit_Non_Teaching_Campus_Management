@@ -1,0 +1,7 @@
+flask
+flask-mysqldb
+mysql-connector-python
+configparser
+pandas
+matplotlib
+Werkzeug

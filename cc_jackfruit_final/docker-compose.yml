@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  non-teaching:
+    build: ./cc_jackfruit_final_complete
+    container_name: non-teaching
+    ports:
+      - "5000:5000"
+    networks:
+      - hostel-network
+
+  hostel-menu:
+    build: ./hostel-menu
+    container_name: hostel-menu
+    ports:
+      - "5001:5001"
+    networks:
+      - hostel-network
+
+  student-welfare:
+    build: ./student_welfare_service
+    container_name: student-welfare
+    ports:
+      - "5002:5002"
+    networks:
+      - hostel-network
+    env_file:
+      - ./student_welfare_service/.env
+
+networks:
+  hostel-network:
+    driver: bridge
