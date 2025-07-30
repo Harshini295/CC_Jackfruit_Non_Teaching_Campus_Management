@@ -66,7 +66,7 @@ A comprehensive Flask web application built to digitize and automate the adminis
 
 ---
 
-## 🧠 System Architecture & Technical Overview
+## System Architecture & Technical Overview
 
 The system is composed of **two modular Flask microservices**:
 
