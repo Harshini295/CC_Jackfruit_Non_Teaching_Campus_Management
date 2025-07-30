@@ -57,7 +57,7 @@ A comprehensive Flask web application built to digitize and automate the adminis
 
 - **Backend**: Python 3.8+, Flask (microservice architecture)
 - **Databases**:
-  - MySQL (canteen service)
+  - MySQL (contracts and canteen service)
   - SQLite (hostel service)
 - **Frontend**: HTML5, CSS3, Bootstrap 5.3, JavaScript, Jinja2
 - **Libraries**: Flask-MySQLdb, MySQL Connector/Python, ConfigParser, Pandas, Matplotlib, Werkzeug
